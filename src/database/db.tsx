@@ -1,0 +1,51 @@
+export const  categories: ShopItem[] = [
+    {
+        id: 1,
+        name: "HomePod Mini",
+        image: "/images/shop-1.png",
+        description: "Table with air purifier, stained veneer/black",
+        amount: 299,
+        rating: 5,
+        
+    },
+    {
+        id: 2,
+        name: "Instax Mini 9",
+        image: "/images/shop-2.png",
+        description: "Selfie mode and selfie mirror, Macro mode",
+        amount: 99,
+        rating: 4,
+    },
+    {
+        id: 3,
+        name: "Base Camp Duffel M",
+        image: "/images/shop-3.png",
+        description: 'Table with air purifier, stained veneer/black',
+        amount: 299,
+        rating: 3,
+    },
+    {
+        id: 4,
+        name: "Tot e Medium",
+        image: "/images/shop-4.png",
+        description: 'Table with air purifier, stained veneer/black',
+        amount: 299,
+        rating: 2,
+    },
+    {
+        id: 5,
+        name: "HomePod Mini",
+        image: "/images/shop-5.png",
+        description: 'Table with air purifier, stained veneer/black',
+        amount: 299,
+        rating: 1,
+    },
+    {
+        id: 6,
+        name: "HomePod Shop-6",
+        image: "/images/watch.png",
+        description: 'Table with air purifier, stained veneer/black',
+        amount: 299,
+        rating: 0,
+    },
+]
