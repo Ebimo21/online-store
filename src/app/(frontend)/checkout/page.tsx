@@ -1,11 +1,12 @@
 "use client"
+import Paystack from '@/components/paystack/Paystack'
 import useCart from '@/hooks/cartProvider'
 import Image from 'next/image'
 import React from 'react'
 
 
 const CheckOut = () => {
-    const {cart, removeFromCart} = useCart();
+    const {cart, removeFromCart, cartTotal} = useCart();
   return (
     <div className='p-4'>
         <h2>Review And Checkout</h2>
@@ -32,6 +33,13 @@ const CheckOut = () => {
                 }): <p>Cart is Empty</p>}
 
         </div>
+
+        <div>
+          <p>Total: ${cartTotal}.00</p>
+          <p>Total: #{cartTotal * 760}.00</p>
+        </div>
+
+        <Paystack />
     </div>
   )
 }
