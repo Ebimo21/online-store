@@ -1,10 +1,17 @@
+"use client"
 import Star from "@/components/icons/Star";
 import { categories } from "@/database/db";
+import useCart from "@/hooks/cartProvider";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 
 export default function Page({ params } : { params: { id: string } }) {
+    const router = useRouter();
     const id = params.id
     const item = categories[Number(id)-1]
+
+    const {addToCart} = useCart();
 
     return (
       <section className="flex flex-wrap p-4">
@@ -22,8 +29,8 @@ export default function Page({ params } : { params: { id: string } }) {
         </div>
 
         <div className="flex mt-10 px-1 gap-4 min-w-full">
-          <button className="btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg">Buy Now</button>
-          <button className="btn p-4 bg-white text-xl text-[#068d21] font-bold rounded-lg border border-solid border-[#068d21]">Add to Cart</button>
+          <button onClick={()=> {addToCart(item); setTimeout(()=>{router.push('/checkout')}, 100)}} className="btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg">Buy Now</button>
+          <button onClick={()=>addToCart(item)} className="btn p-4 bg-white text-xl text-[#068d21] font-bold rounded-lg border border-solid border-[#068d21]">Add to Cart</button>
         </div>
       </section>
     )

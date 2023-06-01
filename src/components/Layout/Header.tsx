@@ -6,11 +6,16 @@ import AccountUser from '../icons/AccountUser'
 import MenuIcon from '../icons/menuIcon'
 import Search from '../icons/Search'
 import Cart from '../icons/Cart'
-import useCart from '@/hooks/useCart'
+import useCart from '@/hooks/cartProvider';
+import { useRouter, usePathname } from 'next/navigation'
 
 const Header = () => {
+  const router = useRouter();
+  const path = usePathname()
   const [showMenu, setShowMenu] = useState<Boolean>(false);
-  const {cart, setCart, addToCart} = useCart();
+  const [showCartContent, setShowCartContent] = useState<Boolean>(false);
+  const {cart, cartCount, removeFromCart, cartTotal} = useCart();
+
   return (
     <div>
       <div className='bg-green-800 p-1 text-xs text-white flex flex-col gap-1 items-center justify-between'>
@@ -50,10 +55,47 @@ const Header = () => {
             <button><Search width={20} height={20} fill='#000'/></button>
           </form>
           <div className='basis-1/12 flex items-center gap-1 md:ml-5'>
-            <div className='fixed md:static bottom-20 rounded-full bg-white shadow-xl btn p-3 z-20' onClick={()=>console.log("clicked cart")}>
-              <Cart width={35} height={35} fill='#7d7d7d' />
-              <span className='bg-red-800 w-5 h-5 text-xs flex items-center justify-center font-bold p-1 rounded-full absolute top-0 text-white right-0'>{cart.length}</span>
+            <div className={`${path=="/checkout"? "hidden md:static": "fixed md:static"}  bottom-20 rounded-full bg-white shadow-xl btn p-3 z-20`} >
+              <div onClick={()=>{setShowCartContent(prev=>!prev)}}>
+                <Cart width={35} height={35} fill='#7d7d7d' />
               </div>
+              <span className='bg-red-800 w-5 h-5 text-xs flex items-center justify-center font-bold p-1 rounded-full absolute top-0 text-white right-0'>{cartCount}</span>
+              {showCartContent && (<div className='absolute p-4 bg-white shadow-2xl h-[70vh] w-[93vw] rounded-2xl bottom-16 right-0'>
+                <h3 className="text-3xl font-bold">Cart </h3>
+                <hr />
+
+                <div className='h-[400px] mt-5 overflow-y-scroll'>
+                  {cart.length > 0? cart.map((item, index)=>{
+                    return(
+                      <div key={index} className='text-sm font-medium'>
+                        <div className='flex items-center gap-2'>
+                          <Image src={item.image} width={50} height={50} alt={item.description} />
+                          <p className='mr-auto'>{item.name}</p>
+
+                          <div className=' flex items-center justify-start gap-2'>
+                            <button onClick={()=>removeFromCart(item)}>x</button>
+                            <span className='p-2 shadow-lg rounded-lg '>{item.count}</span>
+                            <span className='p-2 shadow-lg rounded-lg '>{item.amount} $</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    )
+                  }): <p>Cart is Empty</p>}
+                </div>
+
+                  <div className='absolute bottom-5 w-11/12 flex items-center justify-between'>
+                      <span>Total: {cartTotal} </span>
+                      <button onClick={()=>{setShowCartContent(prev=>!prev); setTimeout(()=>{router.push('/checkout')}, 100)}} className=' btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg'>Checkout</button>
+                  </div>
+                {cart.length> 0 && (
+                  <div className='absolute bottom-5 w-11/12 flex items-center justify-between'>
+                      <span>Total: {cartTotal} </span>
+                      <Link href="/checkout"><button className=' btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg'>Checkout</button></Link>
+                  </div>
+                )}
+              </div>)}
+            </div>
             <AccountUser width={30} height={30} fill='#4b4b4b' />
             <div onClick={()=>setShowMenu(prev=>!prev)}><MenuIcon width={30} height={30} fill='#7d7d7d' /></div>
           </div>

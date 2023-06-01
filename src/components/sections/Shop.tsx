@@ -3,18 +3,16 @@ import Image from 'next/image'
 import React, { Fragment } from 'react'
 import Star from '../icons/Star'
 import Link from 'next/link'
-import { categories } from '@/database/db'
-import useCart from '@/hooks/useCart'
+import useCart from '@/hooks/cartProvider'
 
 const Shop = () => {
-    const {cart, setCart, addToCart} = useCart();
-    
+    const {cart, addToCart, inventory} = useCart();
   return (
     <section className='px-4 pt-20 '>
-        <h2 className='text-2xl font-bold mb-4'>Shop Items {cart.length}</h2>
+        <h2 className='text-2xl font-bold mb-4'>Shop Items</h2>
         <div className='flex flex-wrap justify-between gap-3'>
             {
-                categories.map((item, index)=>{
+                inventory.map((item, index)=>{
                     return (
                         <div className='basis-[48%]' key={index}>
                                 <div className='border border-solid border-slate-300 rounded-xl' >
@@ -24,7 +22,7 @@ const Shop = () => {
                                     </div>
                                     </Link>
                                 </div>
-                                <div className='font-bold my-2 text-lg flex flex-wrap whitespace-normal items-start justify-between w-full'>
+                                <div className='font-bold my-2 text-lg flex flex-wrap whitespace-normal items-start w-full'>
                                     <Link href={`/item/${item.id}/`} key={index}></Link>
                                     <h3 className='basis-8/12'>{item.name}</h3>
                                     <span className='basis-4/12 text-base'>${item?.amount}.<sup>00</sup></span>

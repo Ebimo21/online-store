@@ -15,6 +15,19 @@ type ShopItem = {
     description: string;
     amount: number;
     rating: number;
+    count: number;
+    inStock?: number;
+}
+
+type ShopBest = {
+    id: number;
+    name: string;
+    image: string;
+    description: string;
+    amount: number;
+    rating: number;
+    count: number;
+    inStock?: number;
 }
 
 type shopCategory = {

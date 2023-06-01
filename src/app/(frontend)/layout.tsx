@@ -11,11 +11,11 @@ export const metadata = {
 
   twitter: {
     card: 'app',
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    siteId: '1467726470533754880',
-    creator: '@nextjs',
-    creatorId: '1467726470533754880',
+    title: 'StoreBox',
+    description: 'StoreBox Online Store',
+    // siteId: '1467726470533754880',
+    creator: '@pondei',
+    // creatorId: '1467726470533754880',
     images: {
       url: 'https://nextjs.org/og.png',
       alt: 'Next.js Logo',

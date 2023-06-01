@@ -1,3 +1,4 @@
+import { CartProvider } from "@/hooks/cartProvider"
 
 export const metadata = {
   title: 'Online Store',
@@ -5,5 +6,9 @@ export const metadata = {
 }
 
 export default function RootLayout( { children } : { children: React.ReactNode } ) {
-  return children
+  return (
+    <CartProvider>
+      {children}
+    </CartProvider>
+  )
 }
