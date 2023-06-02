@@ -14,7 +14,7 @@ const Header = () => {
   const path = usePathname()
   const [showMenu, setShowMenu] = useState<Boolean>(false);
   const [showCartContent, setShowCartContent] = useState<Boolean>(false);
-  const {cart, cartCount, removeFromCart, cartTotal} = useCart();
+  const { ckStore, ckStoreCount, removeFromCart, cartTotal} = useCart();
 
   return (
     <div>
@@ -59,18 +59,18 @@ const Header = () => {
               <div onClick={()=>{setShowCartContent(prev=>!prev)}}>
                 <Cart width={35} height={35} fill='#7d7d7d' />
               </div>
-              <span className='bg-red-800 w-5 h-5 text-xs flex items-center justify-center font-bold p-1 rounded-full absolute top-0 text-white right-0'>{cartCount}</span>
+              <span className='bg-red-800 w-5 h-5 text-xs flex items-center justify-center font-bold p-1 rounded-full absolute top-0 text-white right-0'>{ckStoreCount}</span>
               {showCartContent && (<div className='absolute p-4 bg-white shadow-2xl h-[70vh] w-[93vw] rounded-2xl bottom-16 right-0'>
                 <h3 className="text-3xl font-bold">Cart </h3>
                 <hr />
 
                 <div className='h-[400px] mt-5 overflow-y-scroll'>
-                  {cart.length > 0? cart.map((item, index)=>{
+                  {ckStore.length > 0? ckStore.map((item, index)=>{
                     return(
                       <div key={index} className='text-sm font-medium'>
                         <div className='flex items-center gap-2'>
-                          <Image src={item.image} width={50} height={50} alt={item.description} />
-                          <p className='mr-auto'>{item.name}</p>
+                          <Link href={`/checkout/${item.id}`}><Image src={item.image} width={50} height={50} alt={item.description} /></Link>
+                          <Link href={`/checkout/${item.id}`}><p className='mr-auto'>{item.name}</p></Link>
 
                           <div className=' flex items-center justify-start gap-2'>
                             <button onClick={()=>removeFromCart(item)}>x</button>
@@ -88,7 +88,7 @@ const Header = () => {
                       <span>Total: {cartTotal} </span>
                       <button onClick={()=>{setShowCartContent(prev=>!prev); setTimeout(()=>{router.push('/checkout')}, 100)}} className=' btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg'>Checkout</button>
                   </div>
-                {cart.length> 0 && (
+                {ckStore.length> 0 && (
                   <div className='absolute bottom-5 w-11/12 flex items-center justify-between'>
                       <span>Total: {cartTotal} </span>
                       <Link href="/checkout"><button className=' btn p-4 bg-[#068d21] text-xl text-white font-bold rounded-lg'>Checkout</button></Link>

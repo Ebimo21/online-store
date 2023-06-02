@@ -7,6 +7,22 @@ import React from 'react'
 
 const CheckOut = () => {
     const {cart, removeFromCart, cartTotal} = useCart();
+
+    const handleReadCookie = () => {
+      const cookieName = 'myCookie';
+      const cookies = document.cookie.split(';');
+  
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        console.log(cookie);
+  
+        if (cookie.startsWith(cookieName + '=')) {
+          const cookieValue = cookie.substring(cookieName.length + 1);
+          console.log(cookieValue);
+          break;
+        }
+      }
+    };
   return (
     <div className='p-4'>
         <h2>Review And Checkout</h2>
@@ -39,7 +55,11 @@ const CheckOut = () => {
           <p>Total: #{cartTotal * 760}.00</p>
         </div>
 
+        <button onClick={()=>handleReadCookie()}>Read</button>
+
         <Paystack />
+
+
     </div>
   )
 }

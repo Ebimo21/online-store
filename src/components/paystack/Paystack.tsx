@@ -58,7 +58,7 @@ const Paystack = (props: Props) => {
       onChange={(e) => setPhone(e.target.value)}
     />
   </div>
-  <PaystackButton className="paystack-button btn p-3 bg-green-900 text-white mt-4 font-bold rounded-lg" {...componentProps} />
+  {/* <PaystackButton className="paystack-button btn p-3 bg-green-900 text-white mt-4 font-bold rounded-lg" {...componentProps} /> */}
 </div>
 
     </Fragment>
