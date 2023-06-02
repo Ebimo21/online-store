@@ -69,8 +69,8 @@ const Header = () => {
                     return(
                       <div key={index} className='text-sm font-medium'>
                         <div className='flex items-center gap-2'>
-                          <Link href={`/checkout/${item.id}`}><Image src={item.image} width={50} height={50} alt={item.description} /></Link>
-                          <Link href={`/checkout/${item.id}`}><p className='mr-auto'>{item.name}</p></Link>
+                          <Link href={`/item/${item.id}`}><Image src={item.image} width={50} height={50} alt={item.description} /></Link>
+                          <Link href={`/item/${item.id}`}><p className='mr-auto'>{item.name}</p></Link>
 
                           <div className=' flex items-center justify-start gap-2'>
                             <button onClick={()=>removeFromCart(item)}>x</button>
