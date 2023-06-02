@@ -66,11 +66,19 @@ async function resetItem(key:string) {
             setCkStore([])
             setCart([])
 
+        }else{
+            const tempCookieStore:string =  String(getCookie('store'));
+            const CookieStore:ShopItem[]  = JSON.parse(tempCookieStore);
+            setCkStore(CookieStore)
+
         }
     
         if(!getCookie('storeCount')){
             setCookie('storeCount', JSON.stringify(0))
             setCkStoreCount(0)
+        }else{
+            const CookieStoreCount:number = Number(getCookie('storeCount'));
+            setCkStoreCount(CookieStoreCount)
         }
     }, [])
     
@@ -94,8 +102,6 @@ async function resetItem(key:string) {
     const removeFromCart = (item:ShopItem):void =>{
         const tempCookieStore:string =  String(getCookie('store'));
         const CookieStoreCount = Number(getCookie('storeCount'));
-        resetItem("store")
-        resetItem("storeCount")
         
         const CookieStore:ShopItem[]  = JSON.parse(tempCookieStore);
         const found = CookieStore.find((cartItem)=> cartItem.id == item.id);
