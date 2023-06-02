@@ -55,7 +55,6 @@ const Brands = () => {
                         <div className='w-full rounded-sm flex items-center gap-2 px-4 py-3 bg-[#eeeeee43] shadow-md' key={index}>
                             <div className={`relative w-16 h-16`}>
                                 <Image className='rounded-full absolute align-middle' src={item.image} width={100} height={100} alt="aite" />
-
                             </div>
                             <div className='flex flex-col justify-between'>
                                 <p className='font-semibold text-base'>{item.name}</p>
@@ -63,10 +62,6 @@ const Brands = () => {
                             </div>
 
                         </div>
-                        // <div className='basis-[48%] rounded-lg relative overflow-hidden  ' key={index}>
-                        //         <h3 className='text-center absolute top-5 w-full z-20 font-bold text-xl text-white '>{item.name}</h3>
-                        //         <Image className='w-full align-middle z-10 hover:scale-125 duration-1000' src={item.image} width={50} height={50} alt="ther" />
-                        // </div>
                     )
                 })
             }
