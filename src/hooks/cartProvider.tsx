@@ -80,10 +80,17 @@ async function resetItem(key:string) {
             const CookieStoreCount:number = Number(getCookie('storeCount'));
             setCkStoreCount(CookieStoreCount)
         }
+        // resetItem('store');
+        // resetItem('storeCount');
+        // setCookie('store', JSON.stringify([]));
+        // setCookie('storeCount', JSON.stringify(0))
+        // setCkStore([])
+        // setCkStoreCount(0)
+
+
+
     }, [])
     
-    const Storestr = JSON.stringify([{}])
-    const Countstr = JSON.stringify(0)
 
     // const tempCookieStore:string =  String(getCookie('store')) || Storestr;
     // const CookieStoreCount:number = Number(getCookie('storeCount')) ||  Number(Countstr);
@@ -95,9 +102,9 @@ async function resetItem(key:string) {
 
     const cartTotal = useMemo(()=>{
         let total = 0;
-        cart.map((item, index)=> total += (item.amount * item.count));
+        ckStore.map((item, index)=> total += (item.amount * item.count));
         return total
-    }, [cart])
+    }, [ckStore])
 
     const removeFromCart = (item:ShopItem):void =>{
         const tempCookieStore:string =  String(getCookie('store'));
@@ -105,22 +112,26 @@ async function resetItem(key:string) {
         
         const CookieStore:ShopItem[]  = JSON.parse(tempCookieStore);
         const found = CookieStore.find((cartItem)=> cartItem.id == item.id);
+        console.log(found);
 
         if(found){
             const modifiedCookieStore:ShopItem[] = CookieStore.filter(item => item.id !== found.id);
             setCkStore(modifiedCookieStore)
             // setCkStoreCount(prev=> prev-1)
-            // setCookie('store', JSON.stringify(modifiedCookieStore));
+            setCookie('store', JSON.stringify(modifiedCookieStore));
             setCookie('storeCount', String(CookieStoreCount - 1));
-            console.log(modifiedCookieStore);
+            // console.log(modifiedCookieStore);
             setCart(modifiedCookieStore);
             setCartCount(prev=> prev-1);
             setCkStoreCount(prev=>prev-1)
+            // console.log(modifiedCookieStore);
         }
+
     }
 
     const addToCart = (item:ShopItem):void =>{
         const temp =  String(getCookie('store'));
+        console.log(temp);
         const CookieStore:ShopItem[]  = JSON.parse(temp);
         const found = CookieStore.find((cartItem)=> cartItem.id == item.id )
         console.log(CookieStore);
@@ -128,7 +139,7 @@ async function resetItem(key:string) {
         if(!found){
             const newItem:ShopItem[] = [...CookieStore, {...item, count: 1}]
             setCookie('store', JSON.stringify(newItem));
-            setCookie('storeCount', cartCount + 1)
+            setCookie('storeCount', ckStoreCount + 1)
             setCart(newItem);
             setCartCount(prev=>prev+1);
             setCkStore(newItem);
