@@ -131,10 +131,12 @@ async function resetItem(key:string) {
                 if(prevItem.id === item.id){
                     return {...prevItem, count: prevItem.count + 1}
                 }
-                return prevItem;
+                console.log();
+                return {...prevItem};
             });
 
-            setCkStore(modifiedCookieStore)
+            setCkStore(modifiedCookieStore);
+            setCookie('store', JSON.stringify(modifiedCookieStore));
             setCart(modifiedCookieStore);
         }
     }
