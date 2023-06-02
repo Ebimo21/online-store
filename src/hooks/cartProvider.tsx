@@ -2,7 +2,6 @@
 import { categories } from "@/database/db";
 import { SetStateAction, useEffect, useMemo } from "react";
 import { createContext, Dispatch, useContext, useState } from "react";
-import { getCookie, setCookie } from "cookies-next";
 
 type CartContextType = {
     cart: ShopItem[]; 
@@ -50,7 +49,6 @@ export const CartProvider = ({children}: Props) =>{
 const setCookie = (key:string, value:string|number, numberOfDays:number=2) => {
     const now = new Date();
 
-    // set the time to be now + numberOfDays
     now.setTime(now.getTime() + numberOfDays * 60 * 60 * 24 * 1000);
 
     document.cookie = `${key}=${value}; expires=${now.toUTCString()}; path=/`;
@@ -80,21 +78,7 @@ async function resetItem(key:string) {
             const CookieStoreCount:number = Number(getCookie('storeCount'));
             setCkStoreCount(CookieStoreCount)
         }
-        // resetItem('store');
-        // resetItem('storeCount');
-        // setCookie('store', JSON.stringify([]));
-        // setCookie('storeCount', JSON.stringify(0))
-        // setCkStore([])
-        // setCkStoreCount(0)
-
-
-
     }, [])
-    
-
-    // const tempCookieStore:string =  String(getCookie('store')) || Storestr;
-    // const CookieStoreCount:number = Number(getCookie('storeCount')) ||  Number(Countstr);
-    // const CookieStore:ShopItem[]  = JSON.parse(tempCookieStore);
     
     const [cart, setCart] = useState<ShopItem[]>(ckStore);
     const [cartCount, setCartCount] = useState<number>(ckStoreCount);
@@ -117,14 +101,11 @@ async function resetItem(key:string) {
         if(found){
             const modifiedCookieStore:ShopItem[] = CookieStore.filter(item => item.id !== found.id);
             setCkStore(modifiedCookieStore)
-            // setCkStoreCount(prev=> prev-1)
             setCookie('store', JSON.stringify(modifiedCookieStore));
             setCookie('storeCount', String(CookieStoreCount - 1));
-            // console.log(modifiedCookieStore);
             setCart(modifiedCookieStore);
             setCartCount(prev=> prev-1);
             setCkStoreCount(prev=>prev-1)
-            // console.log(modifiedCookieStore);
         }
 
     }
@@ -152,8 +133,7 @@ async function resetItem(key:string) {
                 }
                 return prevItem;
             });
-// 
-            // setCookie('store', JSON.stringify(modifiedCookieStore));
+
             setCkStore(modifiedCookieStore)
             setCart(modifiedCookieStore);
         }
