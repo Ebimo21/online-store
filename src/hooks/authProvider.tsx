@@ -1,6 +1,8 @@
 "use client"
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import useCookie from "./useCookie";
+import { useRouter } from "next/navigation";
+import useCart from "./cartProvider";
 
 type AuthContextType = {
     loginAuth: (token: string) => void;

@@ -30,6 +30,17 @@ type ShopBest = {
     inStock?: number;
 }
 
+type GetProfileDetailsType ={
+    success: boolean,
+    data: {
+        id: string,
+        fname: string,
+        lname: string,
+        email: string,
+    }[] | null,
+    message: string,
+}
+
 type shopCategory = {
     name: string;
     image: string;

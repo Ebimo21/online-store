@@ -15,9 +15,11 @@ export default function RootLayout({
       if(!isLoading && accessToken !== ""){
           router.push('/dashboard');
       }
-  }, [isLoading, accessToken])
+  }, [isLoading, accessToken]);
   
-  if(isLoading || accessToken !=="") {
+  if(isLoading || accessToken !=="") return null;
+  
+  if(isLoading && accessToken !=="") {
     return <p>User already logged in...</p>
   }
   return children

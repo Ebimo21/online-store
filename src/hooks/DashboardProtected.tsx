@@ -12,10 +12,10 @@ const DashboardProtected = ({children}: Props) => {
     useEffect(()=>{
 
         if(!isLoading && accessToken == ""){
-            router.push('/');
+            router.push('/login');
         }
     }, [isLoading, accessToken])
-    
+
      if(isLoading || accessToken =="") {
         return null
      }

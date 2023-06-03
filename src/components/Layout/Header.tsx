@@ -96,7 +96,7 @@ const Header = () => {
                 )}
               </div>)}
             </div>
-            <Link href={'/login'}>
+            <Link href={'/dashboard/profile'}>
               <AccountUser width={30} height={30} fill='#4b4b4b' />
             </Link>
             <div onClick={()=>setShowMenu(prev=>!prev)}><MenuIcon width={30} height={30} fill='#7d7d7d' /></div>

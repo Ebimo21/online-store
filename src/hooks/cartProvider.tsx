@@ -14,6 +14,7 @@ type CartContextType = {
     cartTotal: number;
     ckStore: ShopItem[];
     setCkStore: Dispatch<SetStateAction<Array<ShopItem>>>;
+    setCkStoreCount: Dispatch<number>;
     ckStoreCount: number;
   };
 
@@ -28,6 +29,7 @@ const CartContext = createContext<CartContextType> ({
     ckStore: [],
     setCkStore: ()=>{},
     ckStoreCount: 0,
+    setCkStoreCount: ()=>{}
 });
 
 export default function useCart(){
@@ -69,7 +71,7 @@ export const CartProvider = ({children}: Props) =>{
 
     const cartTotal = useMemo(()=>{
         let total = 0;
-        ckStore.map((item, index)=> total += (item.amount * item.count));
+        ckStore.map((item)=> total += (item.amount * item.count));
         return total
     }, [ckStore])
 
@@ -79,7 +81,6 @@ export const CartProvider = ({children}: Props) =>{
         
         const CookieStore:ShopItem[]  = JSON.parse(tempCookieStore);
         const found = CookieStore.find((cartItem)=> cartItem.id == item.id);
-        console.log(found);
 
         if(found){
             const modifiedCookieStore:ShopItem[] = CookieStore.filter(item => item.id !== found.id);
@@ -138,6 +139,7 @@ export const CartProvider = ({children}: Props) =>{
                 setCkStore,
                 ckStore,
                 ckStoreCount,
+                setCkStoreCount,
             }
         }>
             {children}

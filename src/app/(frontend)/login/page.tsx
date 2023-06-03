@@ -57,7 +57,7 @@ const Page = (props: Props) => {
     <div>
         <div className="flex h-screen items-center justify-center bg-gray-100">
             <div className="bg-white p-8 shadow-md rounded-md w-96">
-            <h2 className="text-2xl font-semibold mb-6">Login</h2>
+            <h2 className="text-2xl font-semibold mb-6">Log In</h2>
             <form onSubmit={(e)=>handleLogin(e)} className='my-4'>
                 <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email</label>
