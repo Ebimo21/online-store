@@ -2,6 +2,7 @@
 import { categories } from "@/database/db";
 import { SetStateAction, useEffect, useMemo } from "react";
 import { createContext, Dispatch, useContext, useState } from "react";
+import useCookie from "./useCookie";
 
 type CartContextType = {
     cart: ShopItem[]; 
@@ -38,25 +39,7 @@ export const CartProvider = ({children}: Props) =>{
     const [ckStore, setCkStore] = useState<ShopItem[]>([])
     const [ckStoreCount, setCkStoreCount ] = useState<number>(0)
 
-    const getCookie = (key:string) =>
-    document.cookie.split("; ").reduce((total, currentCookie) => {
-        const item = currentCookie.split("=");
-        const storedKey = item[0];
-        const storedValue = item[1];
-        return key === storedKey ? decodeURIComponent(storedValue) : total;
-    }, "");
-
-const setCookie = (key:string, value:string|number, numberOfDays:number=2) => {
-    const now = new Date();
-
-    now.setTime(now.getTime() + numberOfDays * 60 * 60 * 24 * 1000);
-
-    document.cookie = `${key}=${value}; expires=${now.toUTCString()}; path=/`;
-};
-
-async function resetItem(key:string) {
-    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-};
+    const {getCookie, setCookie} = useCookie();
 
     useEffect(()=>{
         if(!getCookie('store')){

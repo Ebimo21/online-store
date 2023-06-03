@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/hooks/authProvider"
 import { CartProvider } from "@/hooks/cartProvider"
 
 export const metadata = {
@@ -7,8 +8,10 @@ export const metadata = {
 
 export default function RootLayout( { children } : { children: React.ReactNode } ) {
   return (
-    <CartProvider>
-      {children}
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        {children}
+      </CartProvider>
+    </AuthProvider>
   )
 }

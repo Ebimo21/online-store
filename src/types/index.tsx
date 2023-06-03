@@ -37,3 +37,11 @@ type shopCategory = {
     amount?: number;
     rating?: number;
 }
+
+type returnValue ={
+    success: boolean,
+    data: {
+        accessToken: string;
+    },
+    message: string,
+}

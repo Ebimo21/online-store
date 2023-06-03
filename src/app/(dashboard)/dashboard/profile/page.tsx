@@ -8,7 +8,7 @@ const Page = (props: Props) => {
   const {accessToken} = useAuth();
   return (
     <div>
-      <div>User Dashboard</div>
+      <div>User Profile Page</div>
       <p>{accessToken}</p>
     </div>
   )

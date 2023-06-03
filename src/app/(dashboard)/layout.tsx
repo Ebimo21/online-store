@@ -1,7 +1,9 @@
 import Layout from '@/components/Layout'
-import './globals.css'
+// import './globals.css'
+import "../(frontend)/globals.css"
 import { Montserrat } from 'next/font/google'
 import Head from 'next/head'
+import DashboardProtected from '@/hooks/DashboardProtected'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -46,9 +48,11 @@ export default function RootLayout({
         <link rel="icon" href="/fav.ico" sizes="any" />
       </Head>
       <body className={montserrat.className}>
-        <Layout>
-          {children}
-        </Layout>
+        <DashboardProtected>
+            <Layout>
+                {children}
+            </Layout>
+        </DashboardProtected>
       </body>
     </html>
   )
