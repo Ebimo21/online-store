@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, createContext, useContext, useEffect, useStat
 import useCookie from "./useCookie";
 import { useRouter } from "next/navigation";
 import useCart from "./cartProvider";
+import { GetProfileDetails } from "@/api/dashboard/profile";
 
 type AuthContextType = {
     loginAuth: (token: string) => void;
@@ -10,6 +11,9 @@ type AuthContextType = {
     accessToken: string;
     setAccessToken: Dispatch<SetStateAction<string>>;
     isLoading: boolean;
+    setUser: Dispatch<SetStateAction<user>>;
+    user: user|null;
+    setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -18,6 +22,9 @@ const AuthContext = createContext<AuthContextType>({
     accessToken: "",
     setAccessToken: ()=> {},
     isLoading: true,
+    setRefresh: ()=>{},
+    setUser: ()=> {},
+    user:null,
 });
 
 export default function useAuth(){
@@ -25,11 +32,14 @@ export default function useAuth(){
 }
 
 export function AuthProvider({children}: Props){
+    const [user, setUser] = useState<user>(null);
     const {getCookie, setCookie, resetItem} = useCookie();
     const [accessToken, setAccessToken] = useState<string>("");
     const [isLoading, setIsLoading] = useState(true);
+    const [refresh, setRefresh] = useState(false);
 
     const loginAuth = (token:string) => {
+        
         setCookie('accessToken', JSON.stringify(token) );
         setAccessToken(token);
     }
@@ -40,6 +50,15 @@ export function AuthProvider({children}: Props){
     }
 
     useEffect(()=>{
+        const getUserDetails = async()=>{
+            const response = await GetProfileDetails(accessToken);
+            if(response.data !== null) setUser(response.data[0])  
+        }
+        getUserDetails();
+    }, [accessToken, refresh])
+
+    useEffect(()=>{
+        
         if(!getCookie('accessToken')){
             setCookie('accessToken', JSON.stringify(""));
 
@@ -52,7 +71,7 @@ export function AuthProvider({children}: Props){
     }, [])
 
     return(
-        <AuthContext.Provider value={{loginAuth, logoutAuth, accessToken, setAccessToken, isLoading}}>
+        <AuthContext.Provider value={{loginAuth, logoutAuth, accessToken, setAccessToken, isLoading, setUser, user, setRefresh}}>
             {children}
         </AuthContext.Provider>
     )

@@ -8,6 +8,9 @@ type GetProfileDetailsType ={
         fname: string,
         lname: string,
         email: string,
+        role: string; 
+        email_verified: string; 
+        pfp: string; 
     }[] | null,
     message: string,
 }

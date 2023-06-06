@@ -3,25 +3,21 @@ import { backendHost } from '@/api/apiCalls'
 import { GetProfileDetails, UploadProfilePhoto } from '@/api/dashboard/profile'
 import useAuth from '@/hooks/authProvider'
 import useNotification from '@/hooks/notification'
+import Image from 'next/image'
 import React, { FormEvent, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect, useState } from 'react'
 
 type Props = {}
 // type user = { id: string; fname: string; lname: string; email: string; } | null
 
 const Page = (props: Props) => {
-  // const [user, setUser] = useState<user>(null);
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
   const {accessToken, logoutAuth, setUser, user, setRefresh} = useAuth();
-  console.log(user);
 
   const handleUpload =async(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     const el = e.currentTarget?.elements[0];
-    // @ts-expect-error
-    console.log(el?.files);
     
     // @ts-expect-error
-    
     const response = await UploadProfilePhoto(el?.files[0], accessToken);
     if(response.success){
       setSuccess(true);
@@ -45,9 +41,8 @@ const Page = (props: Props) => {
         <input type='file' />
         <button>Submit</button>
       </form>
-      {success && <p>{successMessage}</p>}
+      {success && <p>{successMessage}</p>}      
       <img src={`${backendHost}/${user?.pfp}`} width={250} height={250} alt="adadf" />
-
     </div>
   )
 }

@@ -4,7 +4,7 @@ import "../(frontend)/globals.css"
 import { Montserrat } from 'next/font/google'
 import Head from 'next/head'
 import DashboardProtected from '@/hooks/DashboardProtected'
-import DashboardLayout from '@/components/Layout/dashboard'
+import AdminLayout from '@/components/Layout/admin'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -50,9 +50,9 @@ export default function RootLayout({
       </Head>
       <body className={montserrat.className}>
         <DashboardProtected>
-            <DashboardLayout>
+            <AdminLayout>
                 {children}
-            </DashboardLayout>
+            </AdminLayout>
         </DashboardProtected>
       </body>
     </html>

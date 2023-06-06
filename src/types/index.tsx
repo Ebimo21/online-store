@@ -56,3 +56,13 @@ type returnValue ={
     },
     message: string,
 }
+
+type user = { 
+    id: string; 
+    fname: string; 
+    lname: string; 
+    email: string; 
+    role: string; 
+    email_verified: string;
+    pfp: string; 
+} | null

@@ -20,9 +20,13 @@ const Paystack = (props: Props) => {
         
         publicKey,
         text: "Pay Now",
-        onSuccess: () =>
-          alert("Thanks for doing business with us! Come back soon!!"),
+        onSuccess: () =>{
+          // alert("Thanks for doing business with us! Come back soon!!");
+          
+
+        },
         onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+
         
       }
   
