@@ -14,7 +14,7 @@ const Shop = () => {
             {
                 inventory.map((item, index)=>{
                     return (
-                        <div className='basis-[48%]' key={index}>
+                        <div className='basis-[45%] xxs:basis-[48%] sm:basis-4/12 md:basis-3/12 lg:basis-2/12' key={index}>
                                 <div className='border border-solid border-slate-300 rounded-xl' >
                                     <Link href={`/item/${item.id}/`} key={index}>
                                     <div className=' rounded-lg relative overflow-hidden  ' >

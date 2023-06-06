@@ -12,6 +12,10 @@ module.exports = {
         xxs: "10px",
       },
 
+      screens: {
+        xxs: "350px",
+      },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

@@ -34,7 +34,10 @@ export function AuthProvider({children}: Props){
         setAccessToken(token);
     }
 
-    const logoutAuth = ()=> resetItem("accessToken");
+    const logoutAuth = ()=> {
+        resetItem("accessToken");
+        setAccessToken('');
+    }
 
     useEffect(()=>{
         if(!getCookie('accessToken')){

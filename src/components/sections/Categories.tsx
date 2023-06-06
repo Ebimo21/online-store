@@ -36,8 +36,8 @@ const Categories = () => {
             {
                 categories.map((item, index)=>{
                     return (
-                        <div className='basis-[48%] rounded-lg relative overflow-hidden  ' key={index}>
-                                <h3 className='text-center absolute top-5 w-full z-20 font-bold text-xl text-white '>{item.name}</h3>
+                        <div className='   basis-[45%] xxs:basis-[48%] xs sm:basis-4/12  md:basis-3/12 lg:basis-2/12 rounded-lg relative overflow-hidden  ' key={index}>
+                                <h3 className='text-center absolute top-5 w-full z-20 font-bold sm:font-medium text-xl sm:text-base text-white '>{item.name}</h3>
                                 <Image className='w-full align-middle z-10 hover:scale-125 duration-1000' src={item.image} width={50} height={50} alt="ther" />
                         </div>
                     )

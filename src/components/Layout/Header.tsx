@@ -38,7 +38,7 @@ const Header = () => {
         <header className='flex items-center justify-between  gap-2 md:gap-4 p-2 py-4 relative shadow-xl'>
           <div className=' basis-[35%] '>
             <Link className='flex items-center gap-1' href="/">
-              <Image className='w-full block' src="/images/logo1.png" width={30} height={30} alt='logo' />
+              <Image className=' block' src="/images/logo1.png" width={30} height={30} alt='logo' />
               <span className='text-xl text-[#636363] font-extrabold'>ShopBox</span>
             </Link>
           </div>

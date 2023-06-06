@@ -5,6 +5,7 @@ import Hero from "@/components/sections/Hero";
 import Shop from "@/components/sections/Shop";
 
 export default function Home() {
+
   return (
     <main className="">
       <Hero />

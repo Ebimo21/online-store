@@ -72,11 +72,11 @@ const BestDeals = () => {
   return (
     <section className='px-4 pt-20 '>
         <h2 className='text-2xl font-bold mb-4'>Today Best Deal for You</h2>
-        <div className='a align-top w-[90vw] md:w-[80vw] my-2 md:mx-10 rounded-xl py-4  whitespace-nowrap bar overflow-x-auto '>
+        <div className='align-top w-[90vw] md:w-[90vw] lg:w-[92vw] my-2 md:mx-3 rounded-xl py-4  whitespace-nowrap bar overflow-x-auto '>
             {
                 categories.map((item, index)=>{
                     return (
-                        <div key={index} className='w-[175px] md:w-[350px] mr-2  inline-block'>
+                        <div key={index} className='w-[175px] md:w-[350px] lg:w-[200px] mr-2  inline-block'>
                             <div className='border border-solid border-slate-300 rounded-xl' >
                                 <div className=' rounded-lg relative overflow-hidden  ' >
                                         <Image className='w-full align-middle z-10 hover:scale-125 duration-1000' src={item.image} width={50} height={50} alt="ther" />
