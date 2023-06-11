@@ -11,7 +11,7 @@ type Props = {}
 
 const Page = (props: Props) => {
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
-  const {accessToken, logoutAuth, setUser, user, setRefresh} = useAuth();
+  const {accessToken, logoutAuth, user, setRefresh} = useAuth();
 
   const handleUpload =async(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault();

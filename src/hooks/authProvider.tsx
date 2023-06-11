@@ -1,8 +1,6 @@
 "use client"
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import useCookie from "./useCookie";
-import { useRouter } from "next/navigation";
-import useCart from "./cartProvider";
 import { GetProfileDetails } from "@/api/dashboard/profile";
 
 type AuthContextType = {
@@ -32,14 +30,14 @@ export default function useAuth(){
 }
 
 export function AuthProvider({children}: Props){
-    const [user, setUser] = useState<user>(null);
     const {getCookie, setCookie, resetItem} = useCookie();
+
+    const [user, setUser] = useState<user>(null);
     const [accessToken, setAccessToken] = useState<string>("");
-    const [isLoading, setIsLoading] = useState(true);
-    const [refresh, setRefresh] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [refresh, setRefresh] = useState<boolean>(false);
 
     const loginAuth = (token:string) => {
-        
         setCookie('accessToken', JSON.stringify(token) );
         setAccessToken(token);
     }
@@ -52,13 +50,16 @@ export function AuthProvider({children}: Props){
     useEffect(()=>{
         const getUserDetails = async()=>{
             const response = await GetProfileDetails(accessToken);
+            console.log(response);
             if(response.data !== null) setUser(response.data[0])  
         }
         getUserDetails();
-    }, [accessToken, refresh])
+    }, [accessToken, refresh]);
+
 
     useEffect(()=>{
-        
+        // set empty access token if it does not exist
+        // save to state if it does exist
         if(!getCookie('accessToken')){
             setCookie('accessToken', JSON.stringify(""));
 

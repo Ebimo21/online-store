@@ -6,7 +6,7 @@ import Link from 'next/link'
 import useCart from '@/hooks/cartProvider'
 
 const Shop = () => {
-    const {cart, addToCart, inventory} = useCart();
+    const {addToCart, inventory} = useCart();
   return (
     <section className='px-4 pt-20 '>
         <h2 className='text-2xl font-bold mb-4'>Shop Items</h2>

@@ -5,12 +5,12 @@ import React from 'react'
 const Categories = () => {
     const categories:shopCategory[] = [
         {
-            name: "Furnitures",
-            image: "/images/furniture.png",
-        },
-        {
             name: "Hand Bag",
             image: "/images/bag.png",
+        },
+        {
+            name: "Furnitures",
+            image: "/images/furniture.png",
         },
         {
             name: "Books",
@@ -25,9 +25,26 @@ const Categories = () => {
             image: "/images/sneakers.png",
         },
         {
+            name: "Books 2 ",
+            image: "/images/books.png",
+        },
+        {
             name: "Travel",
             image: "/images/travel.png",
         },
+        {
+            name: "Sneaker 2",
+            image: "/images/sneakers.png",
+        },
+        {
+            name: "Hand Bag 2 ",
+            image: "/images/bag.png",
+        },
+        {
+            name: "Tech 2 ",
+            image: "/images/tech.png",
+        },
+
     ]
   return (
     <section className='px-4 pt-20 '>

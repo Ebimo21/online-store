@@ -5,8 +5,6 @@ import { createContext, Dispatch, useContext, useState } from "react";
 import useCookie from "./useCookie";
 
 type CartContextType = {
-    cart: ShopItem[]; 
-    setCart: Dispatch<SetStateAction<Array<ShopItem>>>;
     addToCart: (item: ShopItem) => void;
     removeFromCart: (item: ShopItem) => void;
     cartCount: number;
@@ -19,8 +17,6 @@ type CartContextType = {
   };
 
 const CartContext = createContext<CartContextType> ({
-    cart: [],
-    setCart: ()=>{},
     addToCart: () =>{},
     removeFromCart: () =>{},
     cartCount: 0,
@@ -37,17 +33,19 @@ export default function useCart(){
 }
 
 export const CartProvider = ({children}: Props) =>{
-
-    const [ckStore, setCkStore] = useState<ShopItem[]>([])
-    const [ckStoreCount, setCkStoreCount ] = useState<number>(0)
-
+    
     const {getCookie, setCookie} = useCookie();
 
+    const [ckStore, setCkStore] = useState<ShopItem[]>([]);
+    const [ckStoreCount, setCkStoreCount ] = useState<number>(0);
+    const [cartCount, setCartCount] = useState<number>(ckStoreCount);
+    const [inventory, setInventory] = useState<ShopItem[]>(categories);
+
+    // set empty store cookie if it does not exist
+    // save to state if it does exist
     useEffect(()=>{
         if(!getCookie('store')){
             setCookie('store', JSON.stringify([]));
-            setCkStore([])
-            setCart([])
 
         }else{
             const tempCookieStore:string =  String(getCookie('store'));
@@ -57,18 +55,13 @@ export const CartProvider = ({children}: Props) =>{
         }
     
         if(!getCookie('storeCount')){
-            setCookie('storeCount', JSON.stringify(0))
-            setCkStoreCount(0)
+            setCookie('storeCount', JSON.stringify(0));
         }else{
             const CookieStoreCount:number = Number(getCookie('storeCount'));
-            setCkStoreCount(CookieStoreCount)
+            setCkStoreCount(CookieStoreCount);
         }
     }, [])
     
-    const [cart, setCart] = useState<ShopItem[]>(ckStore);
-    const [cartCount, setCartCount] = useState<number>(ckStoreCount);
-    const [inventory, setInventory] = useState<ShopItem[]>(categories);
-
     const cartTotal = useMemo(()=>{
         let total = 0;
         ckStore.map((item)=> total += (item.amount * item.count));
@@ -87,7 +80,6 @@ export const CartProvider = ({children}: Props) =>{
             setCkStore(modifiedCookieStore)
             setCookie('store', JSON.stringify(modifiedCookieStore));
             setCookie('storeCount', String(CookieStoreCount - 1));
-            setCart(modifiedCookieStore);
             setCartCount(prev=> prev-1);
             setCkStoreCount(prev=>prev-1)
         }
@@ -105,7 +97,6 @@ export const CartProvider = ({children}: Props) =>{
             const newItem:ShopItem[] = [...CookieStore, {...item, count: 1}]
             setCookie('store', JSON.stringify(newItem));
             setCookie('storeCount', ckStoreCount + 1)
-            setCart(newItem);
             setCartCount(prev=>prev+1);
             setCkStore(newItem);
             setCkStoreCount(prev=>prev+1);
@@ -121,7 +112,6 @@ export const CartProvider = ({children}: Props) =>{
 
             setCkStore(modifiedCookieStore);
             setCookie('store', JSON.stringify(modifiedCookieStore));
-            setCart(modifiedCookieStore);
         }
     }
     
@@ -129,8 +119,6 @@ export const CartProvider = ({children}: Props) =>{
         <CartContext.Provider value=
         {
             {
-                cart, 
-                setCart, 
                 addToCart, 
                 cartCount, 
                 inventory, 

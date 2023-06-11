@@ -5,13 +5,9 @@ import useAuth from '@/hooks/authProvider'
 import useNotification from '@/hooks/notification'
 import React, { FormEvent, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect, useState } from 'react'
 
-type Props = {}
-// type user = { id: string; fname: string; lname: string; email: string; } | null
-
 const Page = (props: Props) => {
-  // const [user, setUser] = useState<user>(null);
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
-  const {accessToken, logoutAuth, setUser, user, setRefresh} = useAuth();
+  const {accessToken, logoutAuth, user, setRefresh} = useAuth();
   console.log(user);
 
   const handleUpload =async(e:FormEvent<HTMLFormElement>)=>{
