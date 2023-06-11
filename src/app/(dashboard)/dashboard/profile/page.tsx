@@ -5,7 +5,7 @@ import useAuth from '@/hooks/authProvider'
 import useNotification from '@/hooks/notification'
 import React, { FormEvent, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect, useState } from 'react'
 
-const Page = (props: Props) => {
+const Page = () => {
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
   const {accessToken, logoutAuth, user, setRefresh} = useAuth();
   console.log(user);

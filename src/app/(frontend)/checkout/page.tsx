@@ -6,14 +6,14 @@ import React from 'react'
 
 
 const CheckOut = () => {
-    const {cart, removeFromCart, cartTotal} = useCart();
+    const {ckStore, removeFromCart, cartTotal} = useCart();
   return (
     <div className='p-4'>
         <h2>Review And Checkout</h2>
 
         <div>
 
-        {cart.length > 0? cart.map((item, index)=>{
+        {ckStore.length > 0? ckStore.map((item, index)=>{
             return(
                 <div key={index} className='text-sm font-medium'>
                   <div className='flex items-center gap-2'>
