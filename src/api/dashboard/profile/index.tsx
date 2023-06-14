@@ -16,7 +16,6 @@ type GetProfileDetailsType ={
 }
 
 export const GetProfileDetails= async (token:string):Promise<GetProfileDetailsType> =>{
-    
     try{
         const res = await axios.get(`${backendHost}/user/profile`,
         {
@@ -33,20 +32,18 @@ export const GetProfileDetails= async (token:string):Promise<GetProfileDetailsTy
 }
 
 export const UploadProfilePhoto= async (file:any, token:string):Promise<GetProfileDetailsType> =>{
-    console.log(file);
-    console.log(token);
     
     try{
         const res = await axios.postForm(`${backendHost}/user/upload`,
-        {
-           'file': file,
-        
-        },
-        {
-            headers:{
-                Authorization: `Bearer ${token}`
-            } 
-        });
+            {
+                'file': file,
+            },
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                } 
+            }
+        );
         console.log(res.data);
         const data:GetProfileDetailsType = res.data
         return data;

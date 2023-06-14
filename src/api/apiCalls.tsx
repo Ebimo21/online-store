@@ -2,9 +2,16 @@ import axios from "axios";
 
 // export const backendHost = "http://localhost:3001"
 export const backendHost = "https://be-store-production-2d39.up.railway.app"
+// const api = axios.create({
+//     baseURL: backendHost,
+//     headers: {
+//         "Content-Type": 'application/json'
+//     }
+// });
 
 export const login= async (email:string, password:string):Promise<returnValue> =>{
     try{
+
         const res = await axios.post(`${backendHost}/login`, {
          email, password
         });
@@ -45,3 +52,13 @@ export const verifyEmail= async (hash:string):Promise<verifyEmailType> =>{
     }
 }
 
+export const getCategories = async () => {
+    try{
+        const res = await axios.get(`${backendHost}/categories`);
+        const data = res.data;
+        console.log(data);
+        return data;
+    }catch(err:any){
+        return {success: false, message: err.message, data: null}
+    }
+}
