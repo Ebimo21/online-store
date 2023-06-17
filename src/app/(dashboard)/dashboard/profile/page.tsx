@@ -6,7 +6,7 @@ import useNotification from '@/hooks/notification'
 import React, { FormEvent, useEffect, useState} from 'react'
 
 const Page = () => {
-  const {GetProfileDetails} = useProfileAPICall();
+  const {GetProfileDetails, UploadProfilePhoto} = useProfileAPICall();
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
   const {accessToken, refreshToken, logoutAuth, setRefresh} = useAuth();
   const [user, setUser] = useState<user|null>(null);
@@ -19,7 +19,7 @@ const Page = () => {
     
     // @ts-expect-error
     
-    const response = await UploadProfilePhoto(el?.files[0]);
+    const response = await UploadProfilePhoto(el?.files[0], accessToken, refreshToken);
     if(response.success){
       setSuccess(true);
       setRefresh(prev=>!prev)

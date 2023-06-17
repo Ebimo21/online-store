@@ -1,7 +1,8 @@
 import axios from "axios";
 
+export const backendHost = "https://shop.tradefactory.net"
 // export const backendHost = "http://localhost:3001"
-export const backendHost = "https://be-store-production-2d39.up.railway.app"
+// export const backendHost = "https://be-store-production-2d39.up.railway.app"
 
 export const login= async (email:string, password:string):Promise<returnValue> =>{
     try{
