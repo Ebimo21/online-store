@@ -57,7 +57,7 @@ const Page = (props: Props) => {
         router.push('/dashboard');
         setSuccess(false)}, 2000);
       setSuccessMessage(status.message)
-      loginAuth(status.data.accessToken);
+      loginAuth(status.data);
     }else{
       logoutAuth();
       setError(true);

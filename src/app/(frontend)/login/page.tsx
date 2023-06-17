@@ -39,17 +39,16 @@ const Page = (props: Props) => {
       return false;
     } 
 
-    const status =  await login(email, password);
+    const response =  await login(email, password);
     
-    if(status.success){
-      loginAuth(status.data.accessToken);
-      console.log(status.data.accessToken);
+    if(response.success){
+      loginAuth(response.data);
       router.push('/dashboard')
     }else{
       logoutAuth();
       setError(true);
       setTimeout(()=>setError(false), 2000);
-      setErrorMessage(`${status.message}`);
+      setErrorMessage(`${response.message}`);
     }
   }
 

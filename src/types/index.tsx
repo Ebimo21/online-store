@@ -53,6 +53,7 @@ type returnValue ={
     success: boolean,
     data: {
         accessToken: string;
+        refreshToken: string;
     },
     message: string,
 }

@@ -1,16 +1,12 @@
 "use client"
 import { backendHost } from '@/api/apiCalls'
-import { GetProfileDetails, UploadProfilePhoto } from '@/api/dashboard/profile'
 import useAuth from '@/hooks/authProvider'
 import useNotification from '@/hooks/notification'
-import Image from 'next/image'
-import React, { FormEvent, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect, useState } from 'react'
+import React, { FormEvent } from 'react'
 
 type Props = {}
-// type user = { id: string; fname: string; lname: string; email: string; } | null
-
 const Page = (props: Props) => {
-  const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
+  const {successMessage, setSuccessMessage, setSuccess, success }= useNotification();
   const {accessToken, logoutAuth, user, setRefresh} = useAuth();
 
   const handleUpload =async(e:FormEvent<HTMLFormElement>)=>{
@@ -25,8 +21,7 @@ const Page = (props: Props) => {
       setSuccessMessage(response.message)
       setTimeout(()=>{
         setSuccess(false);
-      }, 2000)
-
+      }, 2000);
     }
 
   }

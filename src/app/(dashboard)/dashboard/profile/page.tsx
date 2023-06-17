@@ -1,14 +1,15 @@
 "use client"
 import { backendHost } from '@/api/apiCalls'
-import { GetProfileDetails, UploadProfilePhoto } from '@/api/dashboard/profile'
+import useProfileAPICall from '@/api/dashboard/profile'
 import useAuth from '@/hooks/authProvider'
 import useNotification from '@/hooks/notification'
-import React, { FormEvent, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState} from 'react'
 
 const Page = () => {
+  const {GetProfileDetails} = useProfileAPICall();
   const {successMessage, setSuccessMessage, setSuccess, success }= useNotification()
-  const {accessToken, logoutAuth, user, setRefresh} = useAuth();
-  console.log(user);
+  const {accessToken, refreshToken, logoutAuth, setRefresh} = useAuth();
+  const [user, setUser] = useState<user|null>(null);
 
   const handleUpload =async(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -18,7 +19,7 @@ const Page = () => {
     
     // @ts-expect-error
     
-    const response = await UploadProfilePhoto(el?.files[0], accessToken);
+    const response = await UploadProfilePhoto(el?.files[0]);
     if(response.success){
       setSuccess(true);
       setRefresh(prev=>!prev)
@@ -30,11 +31,24 @@ const Page = () => {
     }
 
   }
+
+  useEffect(() => {
+    const handleGetProfile = async() =>{
+      const response = await GetProfileDetails(accessToken, refreshToken);
+      console.info(response.data)
+      if(response.data !== null) setUser(response.data[0])
+    }
+
+    handleGetProfile();
+  }, [])
   return (
     <div>
       <div>User Profile Page</div>
       <p>User Id: {user?.id}</p>
+      <p>LName: {user?.fname}</p>
+      <p>LName: {user?.lname}</p>
       <p>User Email: {user?.email}</p>
+      <p>{accessToken}</p>
       <button onClick={logoutAuth}>Logout</button>
 
       <form onSubmit={(e)=>handleUpload(e)}>

@@ -12,7 +12,7 @@ const DashboardProtected = ({children}: Props) => {
     useEffect(()=>{
 
         if(!isLoading && accessToken !== "" && user !== null){
-            if (user.role == "admin"){
+            if (user?.role == "admin"){
                 router.push('/admin');
             }
         }
