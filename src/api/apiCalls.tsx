@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const backendHost = "https://shop.tradefactory.net"
 // export const backendHost = "http://localhost:3001"
-// export const backendHost = "https://be-store-production-2d39.up.railway.app"
 
 export const login= async (email:string, password:string):Promise<returnValue> =>{
     try{
@@ -11,7 +10,11 @@ export const login= async (email:string, password:string):Promise<returnValue> =
         });
         return res.data;
     }catch(err:any){
-        return {success: false, message: err.message, data: {accessToken: "", refreshToken: ""}}
+        if (err.response && err.response.status === 401) {
+            return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "", role: "" } };
+        } else {
+            return {success: false, message: err.message, data: {accessToken: "", refreshToken: "", role: ""}}
+        }
     }
 }
 
@@ -23,14 +26,12 @@ export const signUp= async (email:string, password:string, fname:string, lname:s
         const data:returnValue = res.data
         return data;
     }catch(err:any){
-        return {success: false, message: err.message, data: {accessToken: "", refreshToken: ""}}
+        if (err.response && err.response.status === 401) {
+            return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "", role: "" } };
+        } else {
+            return {success: false, message: err.message, data: {accessToken: "", refreshToken: "", role: ""}}
+        }
     }
-}
-
-type verifyEmailType = {
-    success: boolean,
-    data: null,
-    message: string,
 }
 
 export const verifyEmail= async (hash:string):Promise<verifyEmailType> =>{
@@ -41,7 +42,11 @@ export const verifyEmail= async (hash:string):Promise<verifyEmailType> =>{
         const data:verifyEmailType = res.data
         return data;
     }catch(err:any){
-        return {success: false, message: err.message, data: null}
+        if (err.response && err.response.status === 401) {
+            return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "" } };
+        } else {
+            return {success: false, message: err.message, data: null}
+        }
     }
 }
 

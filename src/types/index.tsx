@@ -49,11 +49,21 @@ type shopCategory = {
     rating?: number;
 }
 
+type verifyEmailType = {
+    success: boolean,
+    data: {
+        accessToken: string;
+        refreshToken: string;
+    } | null,
+    message: string,
+}
+
 type returnValue ={
     success: boolean,
     data: {
         accessToken: string;
         refreshToken: string;
+        role: string;
     },
     message: string,
 }

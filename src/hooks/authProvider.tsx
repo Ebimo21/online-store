@@ -13,8 +13,8 @@ type AuthContextType = {
     setAccessToken: Dispatch<SetStateAction<string>>;
     setRefreshToken: Dispatch<SetStateAction<string>>;
     isLoading: boolean;
-    setUser: Dispatch<SetStateAction<user>>;
-    user: user|null;
+    setUserRole: Dispatch<SetStateAction<string>>;
+    userRole: string;
     setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -27,8 +27,8 @@ const AuthContext = createContext<AuthContextType>({
     setRefreshToken: ()=> {},
     isLoading: true,
     setRefresh: ()=>{},
-    setUser: ()=> {},
-    user:null,
+    setUserRole: ()=> {},
+    userRole: "",
 });
 
 export default function useAuth(){
@@ -38,6 +38,7 @@ export default function useAuth(){
 type login = {
     accessToken: string,
     refreshToken: string,
+    role: string,
 }
 
 export function AuthProvider({children}: Props){
@@ -49,12 +50,14 @@ export function AuthProvider({children}: Props){
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [refresh, setRefresh] = useState<boolean>(false);
     const [refreshToken, setRefreshToken] = useState<string>("");
+    const [userRole, setUserRole] = useState<string>('');
 
-    const loginAuth = ({accessToken, refreshToken}:login) => {
+    const loginAuth = ({accessToken, refreshToken, role}:login) => {
         setCookie('accessToken', JSON.stringify(accessToken) );
         setCookie('refreshToken', JSON.stringify(refreshToken) );
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
+        setUserRole(role);
     }
 
     const logoutAuth = ()=> {
@@ -62,6 +65,7 @@ export function AuthProvider({children}: Props){
         resetItem("refreshToken");
         setAccessToken('');
         setRefreshToken('');
+        setUserRole('');
     }
 
 
@@ -91,7 +95,7 @@ export function AuthProvider({children}: Props){
     }, [])
 
     return(
-        <AuthContext.Provider value={{loginAuth, logoutAuth, accessToken, setAccessToken, refreshToken, setRefreshToken, isLoading, setUser, user, setRefresh}}>
+        <AuthContext.Provider value={{loginAuth, logoutAuth, accessToken, setAccessToken, refreshToken, setUserRole, userRole, setRefreshToken, isLoading, setRefresh}}>
             {children}
         </AuthContext.Provider>
     )
