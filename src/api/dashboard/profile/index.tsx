@@ -1,5 +1,6 @@
 import axios from "axios";
 import { backendHost } from "@/api/apiCalls";
+import useAuth from "@/hooks/authProvider";
 
 type GetProfileDetailsType ={
     success: boolean,
@@ -17,6 +18,8 @@ type refreshTokenType = {
 }
 
 export default function useProfileAPICall(){
+  const {accessToken, refreshToken, logoutAuth, setRefresh} = useAuth();
+
     const GetProfileDetails= async (token:string, refreshToken:string):Promise<GetProfileDetailsType> =>{
         try{
             const res = await axios.get(`${backendHost}/user/profile`,
